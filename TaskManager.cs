@@ -48,5 +48,12 @@ namespace PersonalTaskManager
                 tasks = JsonSerializer.Deserialize<List<Task>>(jsonString) ?? new List<Task>();
             }
         }
+
+        public List<Task> SearchTasks(string keyword, DateTime? date)
+        {
+            return tasks.Where(task =>
+                (keyword == null || task.Title.Contains(keyword) || task.Description.Contains(keyword)) &&
+                (date == null || task.DueDate.Date == date.Value.Date)).ToList();
+        }
     }
 }
