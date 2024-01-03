@@ -9,7 +9,7 @@
 
             while (true)
             {
-                Console.WriteLine("\nAvailable commands: add, edit, delete, list, exit");
+                Console.WriteLine("\nAvailable commands: add, edit, delete, list, search, exit");
                 Console.Write("Enter command: ");
                 string command = Console.ReadLine();
 
@@ -26,6 +26,9 @@
                         break;
                     case "list":
                         ListTasks(taskManager);
+                        break;
+                    case "search":
+                        SearchTasks(taskManager);
                         break;
                     case "exit":
                         taskManager.SaveTasksToFile();
@@ -115,6 +118,32 @@
             }
 
             foreach (var task in tasks)
+            {
+                Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
+            }
+        }
+
+        static void SearchTasks(TaskManager taskManager)
+        {
+            Console.Write("Enter keyword (or leave blank for no keyword): ");
+            string keyword = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(keyword))
+                keyword = null;
+
+            Console.Write("Enter date (yyyy-mm-dd, or leave blank for no date): ");
+            string dateString = Console.ReadLine();
+            DateTime? date = null;
+            if (!string.IsNullOrWhiteSpace(dateString))
+                date = DateTime.Parse(dateString);
+
+            var result = taskManager.SearchTasks(keyword, date);
+            if (result.Count == 0)
+            {
+                Console.WriteLine("No tasks found.");
+                return;
+            }
+
+            foreach (var task in result)
             {
                 Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
             }
