@@ -9,7 +9,9 @@
 
             while (true)
             {
-                Console.WriteLine("\nAvailable commands: add, edit, delete, list, search, exit");
+                Console.Clear();
+                ShowMenu();
+
                 Console.Write("Enter command: ");
                 string command = Console.ReadLine();
 
@@ -35,9 +37,25 @@
                         return;
                     default:
                         Console.WriteLine("Unknown command. Please try again.");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
                         break;
                 }
             }
+        }
+
+        static void ShowMenu()
+        {
+            Console.WriteLine("Personal Task Manager");
+            Console.WriteLine("=====================");
+            Console.WriteLine("Commands:");
+            Console.WriteLine("  add    - Add a new task");
+            Console.WriteLine("  edit   - Edit an existing task");
+            Console.WriteLine("  delete - Delete a task");
+            Console.WriteLine("  list   - List all tasks");
+            Console.WriteLine("  search - Search tasks");
+            Console.WriteLine("  exit   - Exit the application");
+            Console.WriteLine();
         }
 
         static void AddTask(TaskManager taskManager)
