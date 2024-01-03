@@ -82,6 +82,7 @@
                 Priority = priority
             };
             taskManager.AddTask(newTask);
+            taskManager.SaveTasksToFile();
         }
 
         static void UpdateTask(TaskManager taskManager)
@@ -119,6 +120,7 @@
             }
 
             taskManager.UpdateTask(taskId, task);
+            taskManager.SaveTasksToFile();
         }
 
         static void DeleteTask(TaskManager taskManager)
@@ -127,6 +129,7 @@
             int taskId = int.Parse(Console.ReadLine());
 
             taskManager.DeleteTask(taskId);
+            taskManager.SaveTasksToFile();
         }
 
         static void ListTasks(TaskManager taskManager)
