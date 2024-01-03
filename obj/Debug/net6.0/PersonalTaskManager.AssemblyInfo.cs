@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PersonalTaskManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d15166836c001fdb0d46d2b3fd478b778bd2aae4")]
 [assembly: System.Reflection.AssemblyProductAttribute("PersonalTaskManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PersonalTaskManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

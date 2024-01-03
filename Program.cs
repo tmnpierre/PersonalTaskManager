@@ -170,40 +170,52 @@
             if (tasks.Count == 0)
             {
                 Console.WriteLine("No tasks available.");
-                Console.WriteLine("\nPress any key to return to the List Menu...");
-                Console.ReadKey();
-                return;
             }
-
-            foreach (var task in tasks)
+            else
             {
-                Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
+                foreach (var task in tasks)
+                {
+                    Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
+                }
             }
-
             Console.WriteLine("\nPress any key to return to the List Menu...");
             Console.ReadKey();
         }
+
 
         static void DisplayTasksByPriority(TaskManager taskManager)
         {
             Console.Clear();
-            var tasks = taskManager.GetAllTasks().OrderBy(task => task.Priority).ToList();
-            if (tasks.Count == 0)
+            var tasks = taskManager.GetAllTasks();
+
+            var orderedTasks = tasks.OrderBy(task =>
+            {
+                return task.Priority switch
+                {
+                    "High" => 1,
+                    "Medium" => 2,
+                    "Low" => 3,
+                    _ => 4
+                };
+            }).ToList();
+
+            if (orderedTasks.Count == 0)
             {
                 Console.WriteLine("No tasks available.");
-                Console.WriteLine("\nPress any key to return to the List Menu...");
-                Console.ReadKey();
-                return;
             }
-
-            foreach (var task in tasks)
+            else
             {
-                Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
+                foreach (var task in orderedTasks)
+                {
+                    Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
+                }
             }
 
             Console.WriteLine("\nPress any key to return to the List Menu...");
             Console.ReadKey();
         }
+
+
 
         static void DisplayTasksByDueDate(TaskManager taskManager)
         {
@@ -212,19 +224,18 @@
             if (tasks.Count == 0)
             {
                 Console.WriteLine("No tasks available.");
-                Console.WriteLine("\nPress any key to return to the List Menu...");
-                Console.ReadKey();
-                return;
             }
-
-            foreach (var task in tasks)
+            else
             {
-                Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
+                foreach (var task in tasks)
+                {
+                    Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
+                }
             }
-
             Console.WriteLine("\nPress any key to return to the List Menu...");
             Console.ReadKey();
         }
+
 
         static void SearchTasks(TaskManager taskManager)
         {
