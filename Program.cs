@@ -9,7 +9,7 @@
 
             while (true)
             {
-                Console.WriteLine("\nAvailable commands: add, list, update, delete, exit");
+                Console.WriteLine("\nAvailable commands: add, edit, delete, list, exit");
                 Console.Write("Enter command: ");
                 string command = Console.ReadLine();
 
@@ -18,14 +18,14 @@
                     case "add":
                         AddTask(taskManager);
                         break;
-                    case "list":
-                        ListTasks(taskManager);
-                        break;
-                    case "update":
+                    case "edit":
                         UpdateTask(taskManager);
                         break;
                     case "delete":
                         DeleteTask(taskManager);
+                        break;
+                    case "list":
+                        ListTasks(taskManager);
                         break;
                     case "exit":
                         taskManager.SaveTasksToFile();
@@ -62,6 +62,49 @@
             taskManager.AddTask(newTask);
         }
 
+        static void UpdateTask(TaskManager taskManager)
+        {
+            Console.Write("Enter task ID to update: ");
+            int taskId = int.Parse(Console.ReadLine());
+
+            var task = taskManager.GetAllTasks().Find(t => t.Id == taskId);
+            if (task == null)
+            {
+                Console.WriteLine("Task not found.");
+                return;
+            }
+
+            Console.Write("Enter new title (blank to skip): ");
+            string title = Console.ReadLine();
+            if (!string.IsNullOrEmpty(title))
+                task.Title = title;
+
+            Console.Write("Enter new description (blank to skip): ");
+            string description = Console.ReadLine();
+            if (!string.IsNullOrEmpty(description))
+                task.Description = description;
+
+            Console.Write("Enter new due date (yyyy-mm-dd, blank to skip): ");
+            string dueDateString = Console.ReadLine();
+            if (!string.IsNullOrEmpty(dueDateString))
+                task.DueDate = DateTime.Parse(dueDateString);
+
+            Console.Write("Enter new priority (blank to skip): ");
+            string priority = Console.ReadLine();
+            if (!string.IsNullOrEmpty(priority))
+                task.Priority = priority;
+
+            taskManager.UpdateTask(taskId, task);
+        }
+
+        static void DeleteTask(TaskManager taskManager)
+        {
+            Console.Write("Enter task ID to delete: ");
+            int taskId = int.Parse(Console.ReadLine());
+
+            taskManager.DeleteTask(taskId);
+        }
+
         static void ListTasks(TaskManager taskManager)
         {
             var tasks = taskManager.GetAllTasks();
@@ -75,16 +118,6 @@
             {
                 Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
             }
-        }
-
-        static void UpdateTask(TaskManager taskManager)
-        {
-
-        }
-
-        static void DeleteTask(TaskManager taskManager)
-        {
-
         }
     }
 }
