@@ -34,6 +34,8 @@
                         break;
                     case "exit":
                         taskManager.SaveTasksToFile();
+                        Console.WriteLine("Exiting the application. Press any key to close...");
+                        Console.ReadKey();
                         return;
                     default:
                         Console.WriteLine("Unknown command. Please try again.");
@@ -163,10 +165,13 @@
 
         static void DisplayAllTasks(TaskManager taskManager)
         {
+            Console.Clear();
             var tasks = taskManager.GetAllTasks();
             if (tasks.Count == 0)
             {
                 Console.WriteLine("No tasks available.");
+                Console.WriteLine("\nPress any key to return to the List Menu...");
+                Console.ReadKey();
                 return;
             }
 
@@ -181,10 +186,13 @@
 
         static void DisplayTasksByPriority(TaskManager taskManager)
         {
+            Console.Clear();
             var tasks = taskManager.GetAllTasks().OrderBy(task => task.Priority).ToList();
             if (tasks.Count == 0)
             {
                 Console.WriteLine("No tasks available.");
+                Console.WriteLine("\nPress any key to return to the List Menu...");
+                Console.ReadKey();
                 return;
             }
 
@@ -199,10 +207,13 @@
 
         static void DisplayTasksByDueDate(TaskManager taskManager)
         {
+            Console.Clear();
             var tasks = taskManager.GetAllTasks().OrderBy(task => task.DueDate).ToList();
             if (tasks.Count == 0)
             {
                 Console.WriteLine("No tasks available.");
+                Console.WriteLine("\nPress any key to return to the List Menu...");
+                Console.ReadKey();
                 return;
             }
 
