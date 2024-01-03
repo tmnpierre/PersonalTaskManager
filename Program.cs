@@ -51,8 +51,7 @@
             Console.Write("Enter due date (yyyy-mm-dd): ");
             DateTime dueDate = DateTime.Parse(Console.ReadLine());
 
-            Console.Write("Enter task priority: ");
-            string priority = Console.ReadLine();
+            string priority = ChoosePriority();
 
             Task newTask = new Task
             {
@@ -92,10 +91,12 @@
             if (!string.IsNullOrEmpty(dueDateString))
                 task.DueDate = DateTime.Parse(dueDateString);
 
-            Console.Write("Enter new priority (blank to skip): ");
-            string priority = Console.ReadLine();
-            if (!string.IsNullOrEmpty(priority))
-                task.Priority = priority;
+            Console.Write("Enter new priority (Low, Medium, High, blank to skip): ");
+            string priorityInput = Console.ReadLine();
+            if (!string.IsNullOrEmpty(priorityInput))
+            {
+                task.Priority = ChoosePriority();
+            }
 
             taskManager.UpdateTask(taskId, task);
         }
@@ -147,6 +148,32 @@
             {
                 Console.WriteLine($"ID: {task.Id}, Title: {task.Title}, Due: {task.DueDate.ToShortDateString()}, Priority: {task.Priority}");
             }
+        }
+
+        static string ChoosePriority()
+        {
+            string priority = "";
+            while (priority != "Low" && priority != "Medium" && priority != "High")
+            {
+                Console.WriteLine("Choose priority (Low, Medium, High):");
+                priority = Console.ReadLine();
+                switch (priority.ToLower())
+                {
+                    case "low":
+                        priority = "Low";
+                        break;
+                    case "medium":
+                        priority = "Medium";
+                        break;
+                    case "high":
+                        priority = "High";
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please enter Low, Medium, or High.");
+                        break;
+                }
+            }
+            return priority;
         }
     }
 }
